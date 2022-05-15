@@ -6,7 +6,7 @@ namespace Ticketer.Models
     {
         [Key]
         [Required]
-        public string id { get; set; }
+        public int id { get; set; }
         [Required]
         public string title { get; set; }
         [Required]

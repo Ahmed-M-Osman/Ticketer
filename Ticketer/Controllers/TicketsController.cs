@@ -27,7 +27,7 @@ namespace Ticketer.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Ticket>>> Get()
         {
-            return Ok(await _context.Tickets.ToListAsync());
+            return Ok(await _context.Ticket.ToListAsync());
         }
 
     }

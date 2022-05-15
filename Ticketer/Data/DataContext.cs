@@ -7,7 +7,7 @@ namespace Ticketer.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
 
         public DbSet<Ticketer.Models.Department> Department { get; set; }
     }

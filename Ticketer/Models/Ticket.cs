@@ -14,19 +14,19 @@ namespace Ticketer.Models
         [Required]
         public DateTime date { get; set; }
         [Required]
-        public string departmentId { get; set; }
+        public int departmentId { get; set; }
         [Required]
         public string category { get; set; }
         [Required]
         public string status { get; set; }
         [Required]
-        public string userOpenId { get; set; }
+        public int userOpenId { get; set; }
         [Required]
-        public string? userCollectId { get; set; }
-        public string? userProcessId { get; set; }
+        public int? userCollectId { get; set; }
+        public int? userProcessId { get; set; }
         [Required]
         public bool isBase { get; set; }
-        public string? baseTicketId { get; set; }
+        public int? baseTicketId { get; set; }
         public string? flag { get; set; }
 
     }

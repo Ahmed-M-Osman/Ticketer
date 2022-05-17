@@ -40,7 +40,7 @@ namespace Ticketer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<Timing>>> PostTime(Timing time)
+        public async Task<ActionResult<List<Timing>>> CreateTime(Timing time)
         {
             _context.Timing.Add(time);
             await _context.SaveChangesAsync();
@@ -49,8 +49,9 @@ namespace Ticketer.Controllers
             return CreatedAtAction(nameof(Get), new { id = time.id }, time);
         }
 
+
         [HttpPut]
-        public async Task<ActionResult<Timing>> PutTime(Timing time)
+        public async Task<ActionResult<Timing>> EditTime(Timing time)
         {
             var dbtime = await _context.Timing.FindAsync(time.id);
 

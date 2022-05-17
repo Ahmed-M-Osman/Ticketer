@@ -17,10 +17,12 @@ namespace Ticketer.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly Ticketer.Controllers.TimingController _timing;
 
-        public TicketsController(DataContext context)
+        public TicketsController(DataContext context, Ticketer.Controllers.TimingController timing)
         {
             _context = context;
+            _timing = timing;
         }
 
         // GET: Tickets
@@ -44,9 +46,14 @@ namespace Ticketer.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostTicket(Ticket ticket)
+        public async Task<ActionResult> CreateTicket(Ticket ticket)
         {
             _context.Ticket.Add(ticket);
+            var time = new Timing();
+            time.ticketId = ticket.id;
+            time.collectTime = ticket.date;
+            // todo: inject TimingController to use CreateTime(Timing time)
+            await _timing.CreateTime(time);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Get), new { id = ticket.id }, ticket);

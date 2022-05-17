@@ -12,5 +12,6 @@ namespace Ticketer.Data
         public DbSet<Ticketer.Models.Department> Department { get; set; }
 
         public DbSet<Ticketer.Models.Timing> Timing { get; set; }
+        public DbSet<Ticketer.Models.Solution> Solution { get; set; }
     }
 }

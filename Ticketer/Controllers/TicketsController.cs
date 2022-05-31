@@ -17,9 +17,9 @@ namespace Ticketer.Controllers
     public class TicketsController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly Ticketer.Controllers.TimingController _timing;
+        private readonly TimingController _timing;
 
-        public TicketsController(DataContext context, Ticketer.Controllers.TimingController timing)
+        public TicketsController(DataContext context, TimingController timing)
         {
             _context = context;
             _timing = timing;
@@ -48,16 +48,27 @@ namespace Ticketer.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateTicket(Ticket ticket)
         {
-            _context.Ticket.Add(ticket);
+
             var time = new Timing();
+            ticket.status = "Opened";
+            ticket.isBase = false;
+            ticket.baseTicketId = null;
+
+            // Todo: add userOpenId
+            // ticket.userOpenId = user.id;
+
+            _context.Ticket.Add(ticket);
+
+            await _context.SaveChangesAsync();
+
             time.ticketId = ticket.id;
             time.collectTime = ticket.date;
-            // todo: inject TimingController to use CreateTime(Timing time)
             await _timing.CreateTime(time);
-            await _context.SaveChangesAsync();
 
             return CreatedAtAction(nameof(Get), new { id = ticket.id }, ticket);
         }
+
+        // Todo: create a controller for sub-ticket
 
         [HttpPut("{id}")]
         public async Task<ActionResult> EditTicket(Ticket ticket)
